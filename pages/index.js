@@ -1,34 +1,9 @@
-import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React from 'react';
+import { useRouter } from 'next/router';
+import { Box, Button, Text, TextField,  } from '@skynexui/components';
+import Image from 'next/image';
 import appConfig from '../config.json';
-
-function GlobalStyle() {
-  return (
-    <style global jsx>{`
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        list-style: none;
-      }
-      body {
-        font-family: 'Open Sans', sans-serif;
-      }
-      /* App fit Height */ 
-      html, body, #__next {
-        min-height: 100vh;
-        display: flex;
-        flex: 1;
-      }
-      #__next {
-        flex: 1;
-      }
-      #__next > * {
-        flex: 1;
-      }
-      /* ./App fit Height */ 
-    `}</style>
-  );
-}
+import imgGithubLogo from '../assets/github-logo.png';
 
 function Titulo(props) {
   const Tag = props.tag || 'h1';
@@ -61,15 +36,18 @@ function Titulo(props) {
 // export default HomePage
 
 export default function PaginaInicial() {
-  const username = 'joaovictorpsantos';
+  const [username, setUsername] = React.useState('joaovictorpsantos');
+  const roteamento = useRouter();
+
+  const getUserImage = () => username.length > 2 ? `https://github.com/${username}.png` : imgGithubLogo;
+
+  const getUsername = () => username.length > 2 ? username : 'Digite seu usuário do GitHub';
 
   return (
     <>
-      <GlobalStyle />
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-        //   backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage: `url(${appConfig.theme.assets.login.backgroundImageURL})`,
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
         }}
@@ -92,6 +70,10 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
+            onSubmit={function (event) {
+              event.preventDefault();
+              roteamento.push('/chat');
+            }}
             styleSheet={{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -103,6 +85,11 @@ export default function PaginaInicial() {
             </Text>
 
             <TextField
+              value={username}
+              onChange={function (event) {
+                const valor = event.target.value;
+                setUsername(valor);
+              }}
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -144,23 +131,24 @@ export default function PaginaInicial() {
               minHeight: '240px',
             }}
           >
-            <Image
-              styleSheet={{
-                borderRadius: '50%',
-                marginBottom: '16px',
-              }}
-              src={`https://github.com/${username}.png`}
-            />
+            <div style={{borderRadius: '50%', display: 'block', overflow: 'hidden', width: '100%'}}>
+              <Image
+                width="100%" height="100%" layout="responsive" objectFit="contain"
+                src={getUserImage()}
+              />
+            </div>
             <Text
               variant="body4"
               styleSheet={{
                 color: appConfig.theme.colors.neutrals[200],
                 backgroundColor: appConfig.theme.colors.neutrals[900],
                 padding: '3px 10px',
-                borderRadius: '1000px'
+                borderRadius: '1000px',
+                textAlign: 'center',
+                marginTop: '4px'
               }}
             >
-              {username}
+              {getUsername()}
             </Text>
           </Box>
           {/* Photo Area */}

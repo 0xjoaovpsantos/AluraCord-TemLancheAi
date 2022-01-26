@@ -146,7 +146,7 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.0.8.tgz#eae6d4c94dc8aae8ba177e2de02080339d0d4563"
   integrity sha512-tTga6OFfO2JS+Yt5hdryng259c/tzNgSWkdiU2E+RBHiysAIOta57n4PJ8iPahOSqEqjaToPI76wM+o441GaNQ==
 
-"@skynexui/components@^1.23.7":
+"@skynexui/components@1.23.7":
   version "1.23.7"
   resolved "https://registry.yarnpkg.com/@skynexui/components/-/components-1.23.7.tgz#a873766da07ad5f9dc5b5825084aa7cecae4e57e"
   integrity sha512-3somHPGCmppdaKv8Zz+oalGLQy2Jlrkj60XxSmpWIp3GVWq4xjGTresuUNol2cHndo4ZxHfIkS22yvsWbcRLnw==
